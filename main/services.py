@@ -42,6 +42,7 @@ def get_games_info(file_path: str)-> Union[list, None]:
         rating = td_list[6].text.strip().replace('-', '')
 
         game = {
+            'appid': el['data-appid'],
             'name': td_list[2].text.strip(),
             'price': price,
             'time': time,
