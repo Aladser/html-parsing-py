@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+    </head>
+    <body>
+        {% if games %}
+        <table>
+          {% for game in games %}
+            <tr>
+              <td>{{game.name}}</td>
+              <td>{{game.time}}</td>
+              <td>{{game.price}}</td>
+              <td>{{game.rating}}</td>
+              <td>{{game.image}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+        {% endif %}
+    </body>
+</html>
