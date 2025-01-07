@@ -1,26 +1,23 @@
 from bs4 import BeautifulSoup
 
-# Открываем локальный HTML-файл
-with open('index.html', 'r', encoding='utf-8') as file:
+with open('./site/index.html', 'r', encoding='utf-8') as file:
     html_content = file.read()
-
-# Создаем объект BeautifulSoup
 soup = BeautifulSoup(html_content, 'html.parser')
 
-# Пример: Извлечение заголовков h1 и h2
-h1_headers = soup.find_all('h1')
-h2_headers = soup.find_all('h2')
+games_list = []
+elements = soup.find_all('tr', class_='app')
+for el in elements:
+    td_list = el.find_all('td')
+    image_src = td_list[1].find('img')['src']
+    image_src_list = image_src.split('/')
+    image_src = f"./site/{image_src_list[2]}"
+    game = {
+        'name':td_list[2].text.strip(),
+        'price': td_list[4].text.strip(),
+        'time': td_list[5].text.strip(),
+        'rating': td_list[6].text.strip(),
+        'image': image_src
+    }
+    games_list.append(game)
 
-print("Заголовки h1:")
-for header in h1_headers:
-    print(header.text)
-
-print("\nЗаголовки h2:")
-for header in h2_headers:
-    print(header.text)
-
-# Пример: Извлечение всех ссылок
-print("\nСсылки:")
-links = soup.find_all('a')
-for link in links:
-    print(link.get('href'))
+[print(game) for game in games_list]
