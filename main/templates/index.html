@@ -16,13 +16,11 @@
                   {% for game in games %}
                         <div class="d-flex mb-2 mx-auto" style="border-bottom-style:dotted">
                             <div class="mg-container me-2">
-                                <img src="{{game.image}}" alt="{{game.image}}" class="img-fluid h-100">
+                                <img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100">
                             </div>
                             <div>
-                                <a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.name}}</a>
+                                <a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a>
                                 <div class="fst-italic">{{game.time}} часов</div>
-                                <div class="fst-italic">{{game.price}}</div>
-                                <div class="fst-italic">{{game.rating}}</div>
                             </div>
                         </div>
                   {% endfor %}
