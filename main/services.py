@@ -3,6 +3,9 @@ from typing import Union
 
 from bs4 import BeautifulSoup
 
+from config.settings import MEDIA_ROOT
+
+
 def get_games_info(file_path: str)-> Union[list, None]:
     """Возвращает информацию об играх"""
 
@@ -21,7 +24,7 @@ def get_games_info(file_path: str)-> Union[list, None]:
         # изображение
         image_src = td_list[1].find('img')['src']
         image_src_list = image_src.split('/')
-        image_src = f"./site/{image_src_list[2]}"
+        image_src = f"/media/site/index/{image_src_list[2]}"
         # время
         time = td_list[5].text.strip()
         if 'm' in time:

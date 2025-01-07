@@ -4,21 +4,30 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>Steam Library</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     </head>
     <body>
-        {% if games %}
-        <table>
-          {% for game in games %}
-            <tr>
-              <td>{{game.name}}</td>
-              <td>{{game.time}}</td>
-              <td>{{game.price}}</td>
-              <td>{{game.rating}}</td>
-              <td>{{game.image}}</td>
-            </tr>
-          {% endfor %}
-        </table>
-        {% endif %}
+
+        <div class="container">
+            {% if games %}
+                <h2 class="text-center">Steam библиотека</h2>
+                <div>
+                  {% for game in games %}
+                        <div class="d-flex mb-2 mx-auto" style="border-bottom-style:dotted">
+                            <div class="mg-container me-2">
+                                <img src="{{game.image}}" alt="{{game.image}}" class="img-fluid h-100">
+                            </div>
+                            <div>
+                                <div class="fs-3 fw-bold">{{game.name}}</div>
+                                <div class="fst-italic">{{game.time}} часов</div>
+                                <div class="fst-italic">{{game.price}}</div>
+                                <div class="fst-italic">{{game.rating}}</div>
+                            </div>
+                        </div>
+                  {% endfor %}
+                </div>
+            {% endif %}
+        </div>
     </body>
 </html>
