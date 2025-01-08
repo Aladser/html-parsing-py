@@ -24,21 +24,9 @@ def get_game_info(appid):
     if response.status_code == 200:
         data = response.json()
         if data[str(appid)]['success']:
-            gameinfo = data[str(appid)]['data']
-            # 'metacritic': gameinfo['metacritic'] if 'metacritic' in gameinfo else '',
-            return {
-                'type':gameinfo['type'],
-                'name': gameinfo['name'],
-                'short_description': gameinfo['short_description'],
-                'image': gameinfo['capsule_image'],
-                'background': gameinfo['background'],
-                'release_date': gameinfo['release_date']['date'],
-                'developers': ', '.join(gameinfo['developers']),
-                'publishers': ', '.join(gameinfo['publishers']),
-                'genres': ', '.join([genre['description'] for genre in gameinfo['genres']]),
-                'categories': ', '.join([genre['description'] for genre in gameinfo['categories']]),
-            }
+            return data[str(appid)]['data']
         else:
+            print(f'Ошибка получения данных', file=sys.stderr)
             return None
     else:
         print(f'Ошибка: {response.status_code}', file=sys.stderr)
