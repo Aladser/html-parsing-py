@@ -50,6 +50,7 @@ def get_steam_games_list(userid, apikey):
 
         if owned_games:
             for game in owned_games:
+                # время
                 time = round(game['playtime_forever'] / 60, 1)
                 if int(time) == time:
                     time = int(time)

@@ -17,7 +17,7 @@
                         <tr class="border">
                             <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
                             <td class="ps-3"><a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a></td>
-                            <td class="fs-4 fst-italic pe-3">{{game.time}}ч</td>
+                            <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
                         </tr>
                   {% endfor %}
                 </table>
