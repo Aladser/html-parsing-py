@@ -1,29 +1,18 @@
-<!DOCTYPE html>
-{% load static %}
+{% extends 'basic.html' %}
 
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Steam Library</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    </head>
-    <body>
-
-        <div class="container">
-            <h2 class="text-center py-2">Steam библиотека</h2>
-            {% if games %}
-                <table>
-                  {% for game in games %}
-                        <tr class="border">
-                            <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
-                            <td class="ps-3"><a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a></td>
-                            <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
-                        </tr>
-                  {% endfor %}
-                </table>
-            {% else %}
-                <div>У пользователя нет игр на аккаунте</div>
-            {% endif %}
-        </div>
-    </body>
-</html>
+{% block content %}
+    {% if games %}
+        <h2 class="text-center py-2">Steam библиотека</h2>
+        <table>
+          {% for game in games %}
+                <tr class="border">
+                    <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
+                    <td class="ps-3"><a href="/game/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a></td>
+                    <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
+                </tr>
+          {% endfor %}
+        </table>
+    {% else %}
+        <div>У пользователя нет игр на аккаунте</div>
+    {% endif %}
+{% endblock %}
