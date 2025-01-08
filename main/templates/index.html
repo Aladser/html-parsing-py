@@ -10,21 +10,19 @@
     <body>
 
         <div class="container">
+            <h2 class="text-center py-2">Steam библиотека</h2>
             {% if games %}
-                <h2 class="text-center">Steam библиотека</h2>
-                <div>
+                <table>
                   {% for game in games %}
-                        <div class="d-flex mb-2 mx-auto" style="border-bottom-style:dotted">
-                            <div class="mg-container me-2">
-                                <img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100">
-                            </div>
-                            <div>
-                                <a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a>
-                                <div class="fst-italic">{{game.time}} часов</div>
-                            </div>
-                        </div>
+                        <tr class="border">
+                            <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
+                            <td class="ps-3"><a href="https://store.steampowered.com/app/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a></td>
+                            <td class="fs-4 fst-italic pe-3">{{game.time}}ч</td>
+                        </tr>
                   {% endfor %}
-                </div>
+                </table>
+            {% else %}
+                <div>У пользователя нет игр на аккаунте</div>
             {% endif %}
         </div>
     </body>

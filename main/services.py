@@ -50,10 +50,14 @@ def get_steam_games_list(userid, apikey):
 
         if owned_games:
             for game in owned_games:
+                time = round(game['playtime_forever'] / 60, 1)
+                if int(time) == time:
+                    time = int(time)
+
                 games_list.append({
                     'title': game['name'],
                     'appid': game['appid'],
-                    'time': round(game['playtime_forever']/60, 2),
+                    'time': time,
                 })
             sorted_games_list = sorted(games_list, key=lambda x: x.get('time', 0), reverse=True)
             return sorted_games_list
