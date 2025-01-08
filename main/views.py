@@ -1,7 +1,7 @@
 from django.views.generic import TemplateView
 from steam_web_api import Steam
 from config.settings import STEAM_USER_ID, STEAM_API_KEY
-from main.services import get_steam_games_list, get_game_info
+from main.services import get_steam_games_list, get_game_info, get_steam_userid
 
 
 class MainView(TemplateView):
@@ -10,9 +10,12 @@ class MainView(TemplateView):
     template_name = 'index.html'
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        games_list = get_steam_games_list(STEAM_USER_ID, STEAM_API_KEY)
+        login = self.request.GET['login'] if 'login' in self.request.GET else None
+        userid = get_steam_userid(login, STEAM_API_KEY)
+        games_list = get_steam_games_list(userid, STEAM_API_KEY) if login else None
         context['games'] = games_list
+        context['login'] = login
+        context['userid'] = userid
 
         return context
 
