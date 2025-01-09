@@ -3,16 +3,16 @@
 {% block content %}
     <h2 class="text-center py-2">Steam библиотека</h2>
     <form class="mb-2 mx-auto text-center">
-        <input type="text" name="login" placeholder="Введите логин пользователя" {%if login%}value="{{login}}"{%endif%}>
-        <input type="submit" value="Показать игры">
+        <input type="text" name="login" placeholder="Введите логин пользователя" {%if login%}value="{{login}}"{%endif%} class="text-light bg-secondary border-theme">
+        <input type="submit" value="Показать игры" class="text-light bg-secondary border-theme">
     </form>
 
     {% if games %}
         <table>
           {% for game in games %}
-            <tr class="border">
+            <tr class="border-theme">
                 <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
-                <td class="ps-3"><a href="/game/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-dark">{{game.title}}</a></td>
+                <td class="ps-3"><a href="/game/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
                 <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
             </tr>
           {% endfor %}
