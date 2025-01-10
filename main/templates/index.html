@@ -12,7 +12,7 @@
           {% for game in games %}
             <tr class="border-theme">
                 <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
-                <td class="ps-3"><a href="/game/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
+                <td class="ps-3"><a href="/game_test/{{game.appid}}" class="fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
                 <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
             </tr>
           {% endfor %}
