@@ -37,6 +37,7 @@ class SteamService:
 
     @staticmethod
     def get_steam_games_list(userid, apikey):
+        """Возвращает список игр пользователя"""
         url = f'https://api.steampowered.com/IPlayerService/GetOwnedGames/v1/'
         params = {
             'key': apikey,
