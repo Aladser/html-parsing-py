@@ -15,7 +15,6 @@ class Game(TruncateTableMixin, models.Model):
     categories = models.CharField(verbose_name="Категории", max_length=255)
     header_image = models.CharField(verbose_name="Изображение", max_length=255)
     background = models.CharField(verbose_name="Фон", max_length=255)
-    time = models.FloatField(verbose_name="Время", default=0)
     last_updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now_add=True)
 
     class Meta:

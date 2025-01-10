@@ -17,8 +17,7 @@ class Command(BaseCommand):
          'genres': 'genres',
          'categories': 'categories',
          'header_image': 'header_image',
-         'background': 'background',
-         'time': 100
+         'background': 'background'
          },
         {'steam_appid': 2,
          'name': 'name2',
@@ -31,8 +30,7 @@ class Command(BaseCommand):
          'genres': 'genres2',
          'categories': 'categories2',
          'header_image': 'header_image2',
-         'background': 'background2',
-         'time': 10
+         'background': 'background2'
         },
         {'steam_appid': 3,
          'name': 'name3',
@@ -45,8 +43,7 @@ class Command(BaseCommand):
          'genres': 'genres3',
          'categories': 'categories3',
          'header_image': 'header_image3',
-         'background': 'background3',
-         'time': 2
+         'background': 'background3'
          }
     ]
 
