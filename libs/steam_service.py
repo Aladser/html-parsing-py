@@ -1,5 +1,9 @@
 import sys
 import requests
+from steam_web_api import Steam
+
+from config.settings import STEAM_API_KEY
+
 
 class SteamService:
     @staticmethod
@@ -27,13 +31,18 @@ class SteamService:
         if response.status_code == 200:
             data = response.json()
             if data[str(appid)]['success']:
-                return data[str(appid)]['data']
+                return {'data': data[str(appid)]['data'], 'is_full': True}
             else:
-                print(f'Ошибка получения данных', file=sys.stderr)
-                return None
+                details = SteamService.get_partial_game_info(appid)
+                return {'data': details, 'is_full': False} if details else None
         else:
-            print(f'Ошибка: {response.status_code}', file=sys.stderr)
-            return None
+            details = SteamService.get_partial_game_info(appid)
+            return {'data': details, 'is_full': False} if details else None
+
+    @staticmethod
+    def get_partial_game_info(appid):
+        details = Steam(STEAM_API_KEY).apps.get_app_details(appid)
+        return details[str(appid)]['data'] if details else None
 
     @staticmethod
     def get_steam_games_list(userid, apikey):
@@ -72,3 +81,4 @@ class SteamService:
         else:
             print(f"Ошибка: {response.status_code}", file=sys.stderr)
             return None
+
