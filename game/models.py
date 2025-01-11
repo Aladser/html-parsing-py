@@ -3,7 +3,7 @@ from libs.truncate_table_mixin import TruncateTableMixin
 
 
 class Game(TruncateTableMixin, models.Model):
-    steam_appid = models.IntegerField(verbose_name="APPID")
+    id = models.IntegerField(verbose_name="APPID", primary_key=True, unique=True)
     name = models.CharField(verbose_name="Название", max_length=255)
     short_description = models.CharField(verbose_name="Резюме", max_length=255)
     metacritic = models.IntegerField(verbose_name="Оценка")

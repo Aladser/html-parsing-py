@@ -2,11 +2,7 @@
 
 {% block content %}
   {% if info %}
-    {% if info.background %}
-      <div class="text-center text-light p-3" style="background-image: url({{info.background}})">
-    {% else %}
-      <div class="text-center text-light p-3 bg-secondary bg-gradient">
-    {% endif %}
+    <div class="text-center text-light p-3 bg-game bg-gradient rounded shadow">
       <a href="https://store.steampowered.com/app/{{info.steam_appid}}" class="text-decoration-none text-light"><h2 class="pb-2">{{info.name}}</h2></a>
       <img src="{{info.header_image}}" class="d-block mx-auto pb-3">
       <p class="fs-5">{{info.short_description}}</p>
@@ -46,7 +42,7 @@
     </div>
   {% else %}
     <div class="text-center">
-      <h2 class="text-danger">Ошибка получения данных</h2>
+      <h2>Ошибка получения данных</h2>
     </div>
   {% endif %}
 {% endblock %}

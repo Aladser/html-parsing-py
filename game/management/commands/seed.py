@@ -6,7 +6,7 @@ from libs.seeding import Seeding
 
 class Command(BaseCommand):
     game_list = [
-        {'steam_appid': 1,
+        {'id': 1,
          'name': 'name',
          'short_description': 'short_description',
          'metacritic': 5,
@@ -19,7 +19,7 @@ class Command(BaseCommand):
          'header_image': 'header_image',
          'background': 'background'
          },
-        {'steam_appid': 2,
+        {'id': 2,
          'name': 'name2',
          'short_description': 'short_description2',
          'metacritic': 4,
@@ -32,7 +32,7 @@ class Command(BaseCommand):
          'header_image': 'header_image2',
          'background': 'background2'
         },
-        {'steam_appid': 3,
+        {'id': 3,
          'name': 'name3',
          'short_description': 'short_description3',
          'metacritic': 3,
