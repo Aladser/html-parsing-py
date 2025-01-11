@@ -98,5 +98,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+NULLABLE = {"null": True, "blank": True}
 STEAM_API_KEY = os.getenv("STEAM_API_KEY")
 STEAM_USER_ID = os.getenv("STEAM_USER_ID")

@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 
 from config.settings import STEAM_API_KEY
-from game.models import Game
+from game.models import Game, Developer, Publisher
 from libs.steam_service import SteamService
 
 
@@ -26,7 +26,19 @@ class GameListView(ListView):
             context['games'] =  None
         return context
 
-
+"""
+object.background
+object.id
+object.name
+object.header_image
+object.short_description
+object.metacritic
+    object.metacritic.url
+    object.metacritic.score
+object.release_date
+object.genres
+object.categories
+"""
 class GameDetailView(DetailView):
     """Страница игры"""
 
@@ -46,6 +58,45 @@ class GameDetailView(DetailView):
             if games_data:
                 self.object = games_data['data']
                 self.is_full_data = games_data['is_full']
+
+                if self.is_full_data:
+                    print(self.object['steam_appid'])
+                    print(self.object['name'])
+                    print(self.object['short_description'])
+                    print(self.object['metacritic'])
+                    print(self.object['release_date'])
+                    print(self.object['genres'])
+                    print(self.object['categories'])
+                    print(self.object['header_image'])
+                    print(self.object['background'])
+
+                    print("Разработчики:")
+                    for developer in self.object['developers']:
+                        print(developer, end="(")
+                        developer_obj = Developer.objects.filter(name=developer).first()
+                        print(developer_obj is not None, end=")\n")
+                        if not developer_obj:
+                            developer_obj = Developer(name=developer)
+                            developer_obj.save()
+
+                    print("Издатели:")
+                    for publisher in self.object['publishers']:
+                        print(publisher, end="(")
+                        publisher_obj = Publisher.objects.filter(name=developer).first()
+                        print(publisher_obj is not None, end=")\n")
+                        if not publisher_obj:
+                            publisher_obj = Publisher(name=publisher)
+                            publisher_obj.save()
+
+                    print("Жанры:")
+
+                    print("Категории:")
+                    """
+                        developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
+                        publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)
+                        genres = models.ManyToManyField(Genre, verbose_name="Жанры", **NULLABLE)
+                        categories = models.ManyToManyField(Category, verbose_name="Категории", **NULLABLE)
+                    """
             else:
                 print(f'Ошибка получения данных', file=sys.stderr)
 

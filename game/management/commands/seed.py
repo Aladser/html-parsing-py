@@ -48,5 +48,4 @@ class Command(BaseCommand):
     ]
 
     def handle(self, *args, **kwargs):
-        Game.truncate()
-        Seeding.seed_table(Game, self.game_list)
+        pass
