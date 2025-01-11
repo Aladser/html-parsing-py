@@ -8,5 +8,5 @@ app_name = GameConfig.name
 urlpatterns = [
     path('', GameListView.as_view()),
     path('detail/<str:id>', GameView.as_view()),
-    path('game/detail/<str:pk>', GameDetailView.as_view())
+    path('game/detail/<int:pk>', GameDetailView.as_view())
 ]
