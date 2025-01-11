@@ -65,7 +65,6 @@ class GameDetailView(DetailView):
                     print(self.object['short_description'])
                     print(self.object['metacritic'])
                     print(self.object['release_date'])
-                    print(self.object['publishers'])
                     print(self.object['genres'])
                     print(self.object['categories'])
                     print(self.object['header_image'])
@@ -89,6 +88,9 @@ class GameDetailView(DetailView):
                             publisher_obj = Publisher(name=publisher)
                             publisher_obj.save()
 
+                    print("Жанры:")
+
+                    print("Категории:")
                     """
                         developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
                         publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)
