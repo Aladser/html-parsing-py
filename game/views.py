@@ -4,7 +4,7 @@ from django.views.generic import DetailView
 from django.views.generic import ListView
 
 from config.settings import STEAM_API_KEY
-from game.models import Game, Developer, Publisher
+from game.models import Game, Developer, Publisher, Genre, Category
 from libs.steam_service import SteamService
 
 
@@ -65,38 +65,36 @@ class GameDetailView(DetailView):
                     print(self.object['short_description'])
                     print(self.object['metacritic'])
                     print(self.object['release_date'])
-                    print(self.object['genres'])
-                    print(self.object['categories'])
                     print(self.object['header_image'])
                     print(self.object['background'])
 
-                    print("Разработчики:")
+                    # Разработчики
                     for developer in self.object['developers']:
-                        print(developer, end="(")
                         developer_obj = Developer.objects.filter(name=developer).first()
-                        print(developer_obj is not None, end=")\n")
                         if not developer_obj:
                             developer_obj = Developer(name=developer)
                             developer_obj.save()
 
-                    print("Издатели:")
+                    # Издатели
                     for publisher in self.object['publishers']:
-                        print(publisher, end="(")
                         publisher_obj = Publisher.objects.filter(name=developer).first()
-                        print(publisher_obj is not None, end=")\n")
                         if not publisher_obj:
                             publisher_obj = Publisher(name=publisher)
                             publisher_obj.save()
 
-                    print("Жанры:")
+                    # Жанры
+                    for genre in self.object['genres']:
+                        genre_obj = Genre.objects.filter(name=genre['description']).first()
+                        if not genre_obj:
+                            genre_obj = Genre(name=genre['description'])
+                            genre_obj.save()
 
-                    print("Категории:")
-                    """
-                        developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
-                        publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)
-                        genres = models.ManyToManyField(Genre, verbose_name="Жанры", **NULLABLE)
-                        categories = models.ManyToManyField(Category, verbose_name="Категории", **NULLABLE)
-                    """
+                    # Категории
+                    for category in self.object['categories']:
+                        category_obj = Category.objects.filter(name=category['description']).first()
+                        if not category_obj:
+                            category_obj = Category(name=category['description'])
+                            category_obj.save()
             else:
                 print(f'Ошибка получения данных', file=sys.stderr)
 
