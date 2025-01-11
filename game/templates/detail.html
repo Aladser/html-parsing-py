@@ -2,8 +2,12 @@
 
 {% block content %}
   {% if object %}
-    <div class="text-center text-light p-3 bg-game bg-gradient rounded shadow">
-      <a href="https://store.steampowered.com/app/{{object.steam_appid}}" class="text-decoration-none text-light"><h2 class="pb-2">{{object.name}}</h2></a>
+    {%if object.background%}
+    <div class="text-center text-light p-3 rounded shadow" style="background-image: url('{{object.background}}');">
+    {%else%}
+    <div class="text-center text-light p-3 rounded shadow  bg-game bg-gradient">
+    {%endif%}
+      <a href="https://store.steampowered.com/app/{{object.id}}" class="text-decoration-none text-light"><h2 class="pb-2">{{object.name}}</h2></a>
       <img src="{{object.header_image}}" class="d-block mx-auto pb-3">
       <p class="fs-5">{{object.short_description}}</p>
 
