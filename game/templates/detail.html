@@ -1,24 +1,28 @@
 {% extends 'basic.html' %}
 
 {% block content %}
-  {% if info %}
-    <div class="text-center text-light p-3 bg-game bg-gradient rounded shadow">
-      <a href="https://store.steampowered.com/app/{{info.steam_appid}}" class="text-decoration-none text-light"><h2 class="pb-2">{{info.name}}</h2></a>
-      <img src="{{info.header_image}}" class="d-block mx-auto pb-3">
-      <p class="fs-5">{{info.short_description}}</p>
+  {% if object %}
+    {%if object.background%}
+    <div class="text-center text-light p-3 rounded shadow" style="background-image: url('{{object.background}}');">
+    {%else%}
+    <div class="text-center text-light p-3 rounded shadow  bg-game bg-gradient">
+    {%endif%}
+      <a href="https://store.steampowered.com/app/{{object.id}}" class="text-decoration-none text-light"><h2 class="pb-2">{{object.name}}</h2></a>
+      <img src="{{object.header_image}}" class="d-block mx-auto pb-3">
+      <p class="fs-5">{{object.short_description}}</p>
 
-      {% if info.metacritic %}
-        <a href="{{info.metacritic.url}}" class="text-decoration-none mx-auto text-light">
+      {% if object.metacritic %}
+        <a href="{{object.metacritic.url}}" class="text-decoration-none mx-auto text-light">
           <div class="w-25 mx-auto py-1 mb-3 bg-success">
             <div>Metacritic</div>
-            <div>{{info.metacritic.score}}</div>
+            <div>{{object.metacritic.score}}</div>
           </div>
         </a>
       {% endif %}
 
-      {% if info.release_date %}
-        {%if not info.release_date.coming_soon %}
-           <div>Дата выхода: {{info.release_date.date}}</div>
+      {% if object.release_date %}
+        {%if not object.release_date.coming_soon %}
+           <div>Дата выхода: {{object.release_date.date}}</div>
         {%else%}
           <div>Дата выхода: В разработке</div>
         {%endif%}
@@ -27,16 +31,16 @@
       {% if developers %}<div>Разработчики: {{developers}}</div>{% endif %}
       {% if publishers %}<div class="pb-3">Издатели: {{publishers}}</div>{% endif %}
 
-      {%if info.genres%}
+      {%if object.genres%}
         <div class="mb-4">
           Жанры:
-          {% for genre in info.genres %} <span class="bg-primary py-1 px-3 rounded">{{genre.description}}</span> {% endfor %}
+          {% for genre in object.genres %} <span class="bg-primary py-1 px-3 rounded">{{genre.description}}</span> {% endfor %}
         </div>
       {%endif%}
 
-      {%if info.categories%}
+      {%if object.categories%}
         <div class="mb-4">
-          {% for cat in info.categories %} <div class="d-inline-block bg-warning px-4 py-2 mb-2 mx-2 rounded">{{cat.description}}</div> {% endfor %}
+          {% for cat in object.categories %} <div class="d-inline-block bg-warning px-4 py-2 mb-2 mx-2 rounded">{{cat.description}}</div> {% endfor %}
         </div>
       {%endif%}
     </div>
