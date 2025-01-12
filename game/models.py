@@ -52,7 +52,7 @@ class Game(TruncateTableMixin, models.Model):
     release_date = models.CharField(verbose_name="Дата выхода", max_length=255, **NULLABLE)
     header_image = models.CharField(verbose_name="Изображение", max_length=255, **NULLABLE)
     background = models.CharField(verbose_name="Фон", max_length=255, **NULLABLE)
-    last_updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now_add=True)
+    last_updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now=True)
 
     developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
     publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)
@@ -65,5 +65,5 @@ class Game(TruncateTableMixin, models.Model):
         ordering = ("name",)
 
     def __str__(self):
-        return f"{self.id}. {self.name}"
+        return f"{self.id}: {self.name}"
 
