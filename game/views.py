@@ -64,8 +64,8 @@ class GameDetailView(DetailView):
                         "name":self.object["name"],
                         "header_image":self.object["header_image"],
                         "short_description":self.object["short_description"],
-                        "metacritic":self.object["metacritic"]['score'],
-                        "metacritic_link": self.object["metacritic"]['url'],
+                        "metacritic":self.object["metacritic"]['score'] if "metacritic" in self.object else 0,
+                        "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
                         "release_date":self.object["release_date"],
                         "background":self.object["background"]
                     }

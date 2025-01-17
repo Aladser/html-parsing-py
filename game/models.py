@@ -46,7 +46,7 @@ class Publisher(TruncateTableMixin, models.Model):
 class Game(TruncateTableMixin, models.Model):
     id = models.IntegerField(verbose_name="APPID", primary_key=True, unique=True)
     name = models.CharField(verbose_name="Название", max_length=255, unique=True)
-    short_description = models.CharField(verbose_name="Резюме", max_length=255, **NULLABLE)
+    short_description = models.CharField(verbose_name="Резюме", max_length=300, **NULLABLE)
     metacritic = models.IntegerField(verbose_name="Оценка", **NULLABLE)
     metacritic_link = models.CharField(verbose_name="Metacritic ссылка", max_length=255, **NULLABLE)
     release_date = models.CharField(verbose_name="Дата выхода", max_length=255, **NULLABLE)
