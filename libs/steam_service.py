@@ -18,10 +18,11 @@ class SteamService:
         response = requests.get(url, params=params)
         if response.status_code == 200:
             data = response.json()
-            return data.get('response', {}).get('steamid')
+            return {'response':True, 'data':data.get('response', {}).get('steamid')}
         else:
-            print(f'Ошибка: {response.status_code}', file=sys.stderr)
-            return None
+            print(response.__dict__)
+            print(f'Ошибка: {response.status_code}: {response.reason}', file=sys.stderr)
+            return {'response':False, 'data':response._content}
 
     @staticmethod
     def get_game_info(appid):

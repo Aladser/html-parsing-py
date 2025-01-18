@@ -18,12 +18,16 @@ class GameListView(ListView):
         context = super().get_context_data(**kwargs)
         login = context['login'] = self.request.GET['login'] if 'login' in self.request.GET else None
         if login:
-            userid = SteamService.get_steam_userid(login, STEAM_API_KEY)
-            games_list = SteamService.get_steam_games_list(userid, STEAM_API_KEY)
-            context['games'] = games_list
-            context['userid'] = userid
-        else:
-            context['games'] =  None
+            user_request = SteamService.get_steam_userid(login, STEAM_API_KEY)
+            if user_request['response']:
+                userid = user_request['data']
+                games_list = SteamService.get_steam_games_list(userid, STEAM_API_KEY)
+                context['games'] = games_list
+                context['userid'] = userid
+                return context
+            else:
+                context['error'] = user_request['data']
+        context['games'] =  None
         return context
 
 """
