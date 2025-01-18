@@ -19,8 +19,8 @@
         </table>
     {% elif userid %}
         <div class="fs-3 text-center py-2">У пользователя нет игр на аккаунте</div>
-    {% elif login %}
-        <div class="fs-3 text-center py-2">Пользователь не существует</div>
+    {% elif error%}
+        <div class="fs-3 text-center py-2">{{error|safe}}</div>
     {% else %}
         <div class="fs-3 text-center py-2">Введите логин пользователя для показа списка игр аккаунта</div>
     {% endif %}
