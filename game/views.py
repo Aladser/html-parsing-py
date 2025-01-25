@@ -1,4 +1,5 @@
 import sys
+from math import floor
 
 from django.views.generic import DetailView
 from django.views.generic import ListView
@@ -34,7 +35,7 @@ class GameListView(ListView):
                     if game['time'] == 0:
                         not_playes_games_count+=1
                 context['played_games_count'] = context['games_count'] - not_playes_games_count
-                context['played_games_percent'] = round(100 * context['played_games_count'] / context['games_count'], 2)
+                context['played_games_percent'] = floor(100 * context['played_games_count'] / context['games_count'])
 
                 return context
             else:
