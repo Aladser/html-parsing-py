@@ -2,4 +2,6 @@
 .idea
 db.sqlite3
 .env
+game/__pycache__
+libs/__pycache__
 
