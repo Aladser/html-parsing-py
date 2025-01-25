@@ -8,7 +8,6 @@ from config.settings import STEAM_API_KEY
 from game.models import Game, Developer, Publisher, Genre, Category
 from libs.steam_service import SteamService
 
-
 class GameListView(ListView):
     """Список игр"""
 
