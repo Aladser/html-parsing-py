@@ -23,12 +23,14 @@
             </tr>
         </table>
 
-        <table>
+        <input type="text" id="search-input" placeholder="Поиск" class="mb-4">
+
+        <table class="w-100">
           {% for game in games %}
-            <tr class="border-theme">
+            <tr class="border-theme w-100">
                 <td class="text-center px-2 {% if forloop.counter0 < 10 %}fs-3 fw-bolder{%else%}fs-4{%endif%}">{{forloop.counter}}</td>
                 <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
-                <td class="ps-3"><a href="{% url 'game:detail' game.appid %}" class="fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
+                <td class="ps-3 w-50"><a href="{% url 'game:detail' game.appid %}" class="game-name fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
                 <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
             </tr>
           {% endfor %}
