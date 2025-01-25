@@ -24,6 +24,18 @@ class GameListView(ListView):
                 games_list = SteamService.get_steam_games_list(userid, STEAM_API_KEY)
                 context['games'] = games_list
                 context['userid'] = userid
+
+                context['games_count'] = len(games_list)
+                total_time = sum([game['time'] for game in games_list])
+                context['avg_time'] = round(total_time / context['games_count'], 2)
+
+                not_playes_games_count = 0
+                for game in games_list:
+                    if game['time'] == 0:
+                        not_playes_games_count+=1
+                context['played_games_count'] = context['games_count'] - not_playes_games_count
+                context['played_games_percent'] = round(100 * context['played_games_count'] / context['games_count'], 2)
+
                 return context
             else:
                 context['error'] = user_request['data']

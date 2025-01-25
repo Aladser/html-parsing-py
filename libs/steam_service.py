@@ -20,9 +20,8 @@ class SteamService:
             data = response.json()
             return {'response':True, 'data':data.get('response', {}).get('steamid')}
         else:
-            print(response.__dict__)
-            print(f'Ошибка: {response.status_code}: {response.reason}', file=sys.stderr)
-            return {'response':False, 'data':response._content}
+            print(response.__dict__, file=sys.stderr)
+            return {'response':False, 'data': f'{response.status_code}: {response.reason}'}
 
     @staticmethod
     def get_game_info(appid):
