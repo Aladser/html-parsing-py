@@ -8,9 +8,25 @@
     </form>
 
     {% if games %}
+        <table class="w-50 mb-3 fs-3 fw-bolder">
+            <tr class="w-25">
+                <td class="p-2">Всего игр</td>
+                <td>{{games_count}}</td>
+            </tr>
+            <tr>
+                <td class="p-2">Среднее время игры</td>
+                <td>{{avg_time}} ч</td>
+            </tr>
+            <tr>
+                <td class="p-2">Сыграно игр</td>
+                <td>{{played_games_percent}} % ({{played_games_count}} / {{games_count}})</td>
+            </tr>
+        </table>
+
         <table>
           {% for game in games %}
             <tr class="border-theme">
+                <td class="text-center px-2 {% if forloop.counter0 < 10 %}fs-3 fw-bolder{%else%}fs-4{%endif%}">{{forloop.counter}}</td>
                 <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
                 <td class="ps-3"><a href="{% url 'game:detail' game.appid %}" class="fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
                 <td class="fs-4 fst-italic pe-3 text-center w-25">{%if game.time > 0%}{{game.time}} ч.{%endif%}</td>
