@@ -5,11 +5,15 @@
     {%if object.background%}
     <div class="text-center text-light p-3 rounded shadow" style="background-image: url('{{object.background}}');">
     {%else%}
-    <div class="text-center text-light p-3 rounded shadow  bg-game bg-gradient">
+    <div class="text-center text-light p-3 rounded shadow  bg-color-theme">
     {%endif%}
       <a href="https://store.steampowered.com/app/{{steam_appid}}" class="text-decoration-none text-light"><h2 class="pb-2">{{object.name}}</h2></a>
       <img src="{{object.header_image}}" class="d-block mx-auto pb-3">
       <p class="fs-5">{{object.short_description}}</p>
+
+      {% if object.price %}
+        <p class="price p-2">{{object.price}}</p>
+      {% endif %}
 
       {% if object.metacritic %}
         <a href="{{object.metacritic_link}}" class="text-decoration-none mx-auto text-light">

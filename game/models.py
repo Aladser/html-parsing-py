@@ -53,6 +53,7 @@ class Game(TruncateTableMixin, models.Model):
     header_image = models.CharField(verbose_name="Изображение", max_length=255, **NULLABLE)
     background = models.CharField(verbose_name="Фон", max_length=255, **NULLABLE)
     last_updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now=True)
+    price = models.CharField(verbose_name="Цена", max_length=255, **NULLABLE)
 
     developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
     publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)

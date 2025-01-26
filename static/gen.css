@@ -6,20 +6,19 @@
     flex-direction: column;
 }
 .content {
-    background-color:rgb(23,28,37);
-    background-image: var(--bs-gradient);
     color: white;
     padding-top: 1rem;
     padding-bottom: 1rem;
 }
 
+.bg-color-theme {
+    background-color:rgb(23,28,37);
+    background-image: var(--bs-gradient);
+}
+
 .border-theme {
     border:3px solid #ddd;
     border-radius: 5%;
-}
-
-.bg-game {
-    background-color: #555;
 }
 
 .search-text {
@@ -53,4 +52,19 @@
 }
 .table-stat__border-left{
     border-left: 1px solid white;
+}
+
+.price {
+    font-family: "DS Hiline";
+    font-size: 1.5rem;
+}
+
+@font-face {
+	font-family: 'DS Hiline';
+	src: url('ds_hiline.eot'); /* IE 9 Compatibility Mode */
+	src: url('ds_hiline.eot?#iefix') format('embedded-opentype'), /* IE < 9 */
+		url('ds_hiline.woff2') format('woff2'), /* Super Modern Browsers */
+		url('ds_hiline.woff') format('woff'), /* Firefox >= 3.6, any other modern browser */
+		url('ds_hiline.ttf') format('truetype'), /* Safari, Android, iOS */
+		url('ds_hiline.svg#ds_hiline') format('svg'); /* Chrome < 4, Legacy iOS */
 }
