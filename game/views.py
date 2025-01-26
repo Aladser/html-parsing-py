@@ -49,9 +49,9 @@ class GameListView(ListView):
                         game_time_stat['20 часов']['count'] += 1
                     if game['time'] >= 12:
                         game_time_stat['12 часов']['count'] += 1
-                    if game['time'] < 12 and game['time'] != 0:
+                    elif game['time'] < 12 and game['time'] != 0:
                         game_time_stat['менее 12 часов']['count'] += 1
-                    if game['time'] == 0:
+                    else:
                         game_time_stat['0 часов']['count'] += 1
 
                 context['played_games_count'] = context['games_count'] - game_time_stat['0 часов']['count']
