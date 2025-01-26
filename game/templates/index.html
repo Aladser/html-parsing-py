@@ -29,14 +29,14 @@
                 <th class="table-stat__bolder-border">Время</th>
                 <th class="table-stat__bolder-border">Количеcтво игр</th>
             </tr>
-            {% for name, count in game_time_stat.items %}
+            {% for name, stat in game_time_stat.items %}
                 <tr>
                     {% if name == '12 часов' %}
                         <td class="table-stat__bolder-border">{{name}}</td>
-                        <td class="table-stat__bolder-border">{{count}}</td>
+                        <td class="table-stat__bolder-border">{{stat.count}} ({{stat.percent}}%)</td>
                     {% else %}
                         <td class="table-stat__border">{{name}}</td>
-                        <td class="table-stat__border">{{count}}</td>
+                        <td class="table-stat__border">{{stat.count}} ({{stat.percent}})%</td>
                     {% endif %}
                 </tr>
             {% endfor %}
