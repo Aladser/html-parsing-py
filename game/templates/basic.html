@@ -8,20 +8,12 @@
         <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
         <link href="/static/gen.css" rel="stylesheet">
-        <style>
-            body {
-                min-height: 100vh; /* Минимальная высота 100% от высоты окна */
-                margin: 0; /* Убираем отступы по умолчанию */
-                display: flex; /* Используем flexbox для центрирования содержимого (по желанию) */
-                flex-direction: column; /* Устанавливаем направление flex-контейнера */
-            }
-        </style>
         <script src="/static/index.js" defer></script>
     </head>
 
-    <body class="bg-secondary bg-gradient text-light">
+    <body class="body">
       <main>
-        <div class="container py-3">
+        <div class="content container">
           {% block content %}
           {% endblock %}
         </div>

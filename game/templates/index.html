@@ -1,7 +1,10 @@
 {% extends 'basic.html' %}
 
 {% block content %}
-    <h2 class="text-center py-2">Steam библиотека</h2>
+    <h2 class="text-center py-2 mb-4">
+        <a href="/" class="text-decoration-none text-light">
+            <img src="/media/logo.png" class="me-2"> <span>Steam библиотека</span></a>
+    </h2>
     <form class="mb-4 mx-auto text-center">
         <input type="text" name="login" placeholder="Введите логин пользователя" {%if login%}value="{{login}}"{%endif%} class="search-text text-light bg-secondary border-theme" required>
         <input type="submit" value="Показать игры" class="search-text text-light bg-secondary border-theme">
@@ -9,7 +12,7 @@
 
     {% if games %}
         <h2 class="text-center">Статистика</h2>
-        <table class="w-50 mb-3 fs-3 fw-bolder">
+        <table class="w-50 fs-3 fw-bolder mx-auto mb-3">
             <tr class="w-25">
                 <td class="p-2">Всего игр</td>
                 <td>{{games_count}}</td>
@@ -26,16 +29,16 @@
 
         <table class="table-stat">
             <tr>
-                <th class="table-stat__bolder-border">Время</th>
+                <th class="table-stat__bolder-border table-stat__border-left">Время</th>
                 <th class="table-stat__bolder-border">Количеcтво игр</th>
             </tr>
             {% for name, stat in game_time_stat.items %}
                 <tr>
                     {% if name == '12 часов' %}
-                        <td class="table-stat__bolder-border">{{name}}</td>
+                        <td class="table-stat__bolder-border table-stat__border-left">{{name}}</td>
                         <td class="table-stat__bolder-border">{{stat.count}} ({{stat.percent}}%)</td>
                     {% else %}
-                        <td class="table-stat__border">{{name}}</td>
+                        <td class="table-stat__border table-stat__border-left">{{name}}</td>
                         <td class="table-stat__border">{{stat.count}} ({{stat.percent}})%</td>
                     {% endif %}
                 </tr>
