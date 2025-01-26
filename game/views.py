@@ -29,12 +29,34 @@ class GameListView(ListView):
                 total_time = sum([game['time'] for game in games_list])
                 context['avg_time'] = round(total_time / context['games_count'], 2)
 
-                not_playes_games_count = 0
+                game_time_stat = {
+                    '250 часов':0,
+                    '100 часов': 0,
+                    '50 часов': 0,
+                    '20 часов': 0,
+                    '12 часов': 0,
+                    'менее 12 часов':0,
+                    '0 часов': 0
+                }
                 for game in games_list:
+                    if game['time'] >= 250:
+                        game_time_stat['250 часов'] +=1
+                    if game['time'] >= 100:
+                        game_time_stat['100 часов'] +=1
+                    if game['time'] >= 50:
+                        game_time_stat['50 часов'] += 1
+                    if game['time'] >= 20:
+                        game_time_stat['20 часов'] += 1
+                    if game['time'] >= 12:
+                        game_time_stat['12 часов'] += 1
+                    if game['time'] < 12 and game['time'] != 0:
+                        game_time_stat['менее 12 часов'] += 1
                     if game['time'] == 0:
-                        not_playes_games_count+=1
-                context['played_games_count'] = context['games_count'] - not_playes_games_count
+                        game_time_stat['0 часов'] += 1
+
+                context['played_games_count'] = context['games_count'] - game_time_stat['0 часов']
                 context['played_games_percent'] = floor(100 * context['played_games_count'] / context['games_count'])
+                context['game_time_stat'] = game_time_stat
 
                 return context
             else:

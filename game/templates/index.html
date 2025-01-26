@@ -3,11 +3,12 @@
 {% block content %}
     <h2 class="text-center py-2">Steam библиотека</h2>
     <form class="mb-4 mx-auto text-center">
-        <input type="text" name="login" placeholder="Введите логин пользователя" {%if login%}value="{{login}}"{%endif%} class="text-light bg-secondary border-theme" required>
-        <input type="submit" value="Показать игры" class="text-light bg-secondary border-theme">
+        <input type="text" name="login" placeholder="Введите логин пользователя" {%if login%}value="{{login}}"{%endif%} class="search-text text-light bg-secondary border-theme" required>
+        <input type="submit" value="Показать игры" class="search-text text-light bg-secondary border-theme">
     </form>
 
     {% if games %}
+        <h2 class="text-center">Статистика</h2>
         <table class="w-50 mb-3 fs-3 fw-bolder">
             <tr class="w-25">
                 <td class="p-2">Всего игр</td>
@@ -23,7 +24,26 @@
             </tr>
         </table>
 
-        <input type="text" id="search-input" placeholder="Поиск" class="search-text">
+        <table class="table-stat">
+            <tr>
+                <th class="table-stat__bolder-border">Время</th>
+                <th class="table-stat__bolder-border">Количеcтво игр</th>
+            </tr>
+            {% for name, count in game_time_stat.items %}
+                <tr>
+                    {% if name == '12 часов' %}
+                        <td class="table-stat__bolder-border">{{name}}</td>
+                        <td class="table-stat__bolder-border">{{count}}</td>
+                    {% else %}
+                        <td class="table-stat__border">{{name}}</td>
+                        <td class="table-stat__border">{{count}}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h2 class="text-center mb-3">Список игр</h2>
+        <input type="text" id="search-input" placeholder="Поиск" class="search-text w-25">
         <button id="clear-search-btn" class="d-none">X</button>
 
         <table class="w-100">
