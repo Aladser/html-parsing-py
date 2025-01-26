@@ -163,3 +163,5 @@ cython_debug/
 static/admin/
 error_log
 access_log
+
+game/migrations/__pycache__
