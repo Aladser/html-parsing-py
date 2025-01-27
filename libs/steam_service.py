@@ -26,7 +26,7 @@ class SteamService:
     @staticmethod
     def get_game_info(appid):
         """Возвращает информацию об игре"""
-        url = url = url = f'http://store.steampowered.com/api/appdetails?appids={appid}&cc=kz'
+        url = f'http://store.steampowered.com/api/appdetails?appids={appid}&cc=kz'
         response = requests.get(url)
         if response.status_code == 200:
             data = response.json()

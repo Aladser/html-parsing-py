@@ -54,6 +54,7 @@ class Game(TruncateTableMixin, models.Model):
     background = models.CharField(verbose_name="Фон", max_length=255, **NULLABLE)
     last_updated_at = models.DateTimeField(verbose_name="Последнее обновление", auto_now=True)
     price = models.CharField(verbose_name="Цена", max_length=255, **NULLABLE)
+    is_free = models.BooleanField(verbose_name="Беслпатная", default=False)
 
     developers = models.ManyToManyField(Developer, verbose_name="Разработчики", **NULLABLE)
     publishers = models.ManyToManyField(Publisher, verbose_name="Издатели", **NULLABLE)

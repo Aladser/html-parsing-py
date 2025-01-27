@@ -107,7 +107,8 @@ class GameDetailView(DetailView):
                         "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
                         "release_date":self.object["release_date"],
                         "background":self.object["background"],
-                        "price": self.object["price_overview"]['final_formatted'] if "price_overview" in self.object else None
+                        "price": self.object["price_overview"]['final_formatted'] if "price_overview" in self.object else None,
+                        'is_free': self.object["is_free"]
                     }
                     game = Game.objects.create(**game_param_list)
 

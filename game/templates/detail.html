@@ -11,7 +11,9 @@
       <img src="{{object.header_image}}" class="d-block mx-auto pb-3">
       <p class="fs-5">{{object.short_description}}</p>
 
-      {% if object.price %}
+      {% if object.is_free %}
+        <p class="price p-2">Free</p>
+      {% elif object.price %}
         <p class="price p-2">{{object.price}}</p>
       {% endif %}
 
