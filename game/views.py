@@ -1,15 +1,14 @@
 import sys
 from math import floor
 
-import requests
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from config.settings import STEAM_API_KEY, KZT_RATE
-from game.models import Game, Developer, Publisher, Genre, Category
+from config.settings import STEAM_API_KEY
+from game.models import Game
 from libs.game_service import GameService
 from libs.steam_service import SteamService
-import json
+
 
 class GameListView(ListView):
     """Список игр"""
@@ -69,20 +68,6 @@ class GameListView(ListView):
                 context['error'] = user_request['data']
         context['games'] = None
         return context
-
-
-"""
-object.background background
-object.id id
-object.name name
-object.header_image header_image
-object.short_description short_description
-object.metacritic
-    object.metacritic.url metacritic_link
-    object.metacritic.score metacritic
-object.release_date release_date
-"""
-
 
 class GameDetailView(DetailView):
     """Страница игры"""

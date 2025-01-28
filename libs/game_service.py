@@ -1,8 +1,18 @@
 from game.models import Game, Developer, Publisher, Genre, Category
-from libs.exchange_rate import ExchangeRate
 
 
 class GameService:
+    """
+    object.background background
+    object.id id
+    object.name name
+    object.header_image header_image
+    object.short_description short_description
+    object.metacritic
+        object.metacritic.url metacritic_link
+        object.metacritic.score metacritic
+    object.release_date release_date
+    """
     @staticmethod
     def insert_game(game_object):
         game_param_list = {
