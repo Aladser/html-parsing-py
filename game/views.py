@@ -7,6 +7,7 @@ from django.views.generic import ListView
 
 from config.settings import STEAM_API_KEY, KZT_RATE
 from game.models import Game, Developer, Publisher, Genre, Category
+from libs.game_service import GameService
 from libs.steam_service import SteamService
 import json
 
@@ -98,54 +99,7 @@ class GameDetailView(DetailView):
             # получение объекта из Steam API
             self.object = SteamService.get_game_info(game_appid)
             if self.object:
-                # если получены полные данные, то записываются в БД
-                game_param_list = {
-                    "id": self.object["steam_appid"],
-                    "name": self.object["name"],
-                    "header_image": self.object["header_image"],
-                    "short_description": self.object["short_description"],
-                    "metacritic": self.object["metacritic"]['score'] if "metacritic" in self.object else 0,
-                    "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
-                    "release_date": self.object["release_date"]['date'],
-                    "background": self.object["background"],
-                    "price": self.object["price"] if "price" in self.object else None,
-                    'is_free': self.object["is_free"]
-                }
-                game = Game.objects.create(**game_param_list)
-
-                # Разработчики
-                for developer in self.object['developers']:
-                    developer_obj = Developer.objects.filter(name=developer).first()
-                    if not developer_obj:
-                        developer_obj = Developer(name=developer)
-                        developer_obj.save()
-                    game.developers.add(developer_obj)
-
-                # Издатели
-                for publisher in self.object['publishers']:
-                    publisher_obj = Publisher.objects.filter(name=publisher).first()
-                    if not publisher_obj:
-                        publisher_obj = Publisher(name=publisher)
-                        publisher_obj.save()
-                    game.publishers.add(publisher_obj)
-
-                # Жанры
-                for genre in self.object['genres']:
-                    genre_obj = Genre.objects.filter(name=genre['description']).first()
-                    if not genre_obj:
-                        genre_obj = Genre(name=genre['description'])
-                        genre_obj.save()
-                    game.genres.add(genre_obj)
-
-                # Категории
-                for category in self.object['categories']:
-                    category_obj = Category.objects.filter(name=category['description']).first()
-                    if not category_obj:
-                        category_obj = Category(name=category['description'])
-                        category_obj.save()
-                    game.categories.add(category_obj)
-
-                self.object = game
+                self.object = GameService.insert_game(self.object)
             else:
                 print(f'Ошибка получения данных', file=sys.stderr)
 
