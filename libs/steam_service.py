@@ -1,8 +1,6 @@
 import sys
 import requests
-from steam_web_api import Steam
-
-from config.settings import STEAM_API_KEY, KZT_RATE
+from config.settings import KZT_RATE
 
 
 class SteamService:
@@ -40,11 +38,6 @@ class SteamService:
                     else:
                         game_object['price'] = game_object["price_overview"]['final_formatted']
         return game_object
-
-    @staticmethod
-    def get_partial_game_info(appid):
-        details = Steam(STEAM_API_KEY).apps.get_app_details(appid)
-        return details[str(appid)]['data'] if details else None
 
     @staticmethod
     def get_steam_games_list(userid, apikey):

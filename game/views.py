@@ -94,9 +94,7 @@ class GameDetailView(DetailView):
         game_id = self.kwargs.get('pk')
         self.object = self.model.objects.filter(pk=(game_id)).first()
 
-        if self.object:
-            self.is_full_data = True
-        else:
+        if not self.object:
             # получение объекта из Steam API
             self.object = SteamService.get_game_info(game_id)
             if self.object:
