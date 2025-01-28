@@ -91,12 +91,12 @@ class GameDetailView(DetailView):
     is_full_data = False
 
     def get_object(self, queryset=None, **kwargs):
-        game_id = self.kwargs.get('pk')
-        self.object = self.model.objects.filter(pk=(game_id)).first()
+        game_appid = self.kwargs.get('pk')
+        self.object = self.model.objects.filter(pk=game_appid).first()
 
         if not self.object:
             # получение объекта из Steam API
-            self.object = SteamService.get_game_info(game_id)
+            self.object = SteamService.get_game_info(game_appid)
             if self.object:
                 # если получены полные данные, то записываются в БД
                 game_param_list = {
