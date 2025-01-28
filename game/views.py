@@ -11,8 +11,6 @@ from libs.steam_service import SteamService
 
 
 class GameListView(ListView):
-    """Список игр"""
-
     model = Game
     template_name = 'index.html'
 
@@ -70,11 +68,8 @@ class GameListView(ListView):
         return context
 
 class GameDetailView(DetailView):
-    """Страница игры"""
-
     model = Game
     template_name = 'detail.html'
-    is_full_data = False
 
     def get_object(self, queryset=None, **kwargs):
         game_appid = self.kwargs.get('pk')
@@ -98,10 +93,7 @@ class GameDetailView(DetailView):
                 context["steam_appid"] = self.object["steam_appid"]
             elif obj_type == "<class 'game.models.Game'>":
                 context["steam_appid"] = self.object.id
-
-        if self.is_full_data:
             context['developers'] = ','.join([dev.name for dev in self.object.developers.all()])
             context['publishers'] = ','.join([pub.name for pub in self.object.publishers.all()])
 
-        self.is_full_data = False
         return context
