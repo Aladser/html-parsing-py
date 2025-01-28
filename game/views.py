@@ -98,67 +98,56 @@ class GameDetailView(DetailView):
             self.is_full_data = True
         else:
             # получение объекта из Steam API
-            games_data = SteamService.get_game_info(game_id)
-            if games_data:
-                self.object = games_data['data']
-                self.is_full_data = games_data['is_full']
-                if self.is_full_data:
-                    # цена
-                    price = None
-                    if "price_overview" in self.object:
-                        if self.object["price_overview"]['currency'] == 'KZT':
-                            price = str(int(KZT_RATE * float(self.object["price_overview"]['final']) / 100)) + " РУБ"
-                        else:
-                            price = self.object["price_overview"]['final_formatted']
+            self.object = SteamService.get_game_info(game_id)
+            if self.object:
+                # если получены полные данные, то записываются в БД
+                game_param_list = {
+                    "id": self.object["steam_appid"],
+                    "name": self.object["name"],
+                    "header_image": self.object["header_image"],
+                    "short_description": self.object["short_description"],
+                    "metacritic": self.object["metacritic"]['score'] if "metacritic" in self.object else 0,
+                    "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
+                    "release_date": self.object["release_date"]['date'],
+                    "background": self.object["background"],
+                    "price": self.object["price"] if "price" in self.object else None,
+                    'is_free': self.object["is_free"]
+                }
+                game = Game.objects.create(**game_param_list)
 
-                    # если получены полные данные, то записываются в БД
-                    game_param_list = {
-                        "id": self.object["steam_appid"],
-                        "name": self.object["name"],
-                        "header_image": self.object["header_image"],
-                        "short_description": self.object["short_description"],
-                        "metacritic": self.object["metacritic"]['score'] if "metacritic" in self.object else 0,
-                        "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
-                        "release_date": self.object["release_date"]['date'],
-                        "background": self.object["background"],
-                        "price": price,
-                        'is_free': self.object["is_free"]
-                    }
-                    game = Game.objects.create(**game_param_list)
+                # Разработчики
+                for developer in self.object['developers']:
+                    developer_obj = Developer.objects.filter(name=developer).first()
+                    if not developer_obj:
+                        developer_obj = Developer(name=developer)
+                        developer_obj.save()
+                    game.developers.add(developer_obj)
 
-                    # Разработчики
-                    for developer in self.object['developers']:
-                        developer_obj = Developer.objects.filter(name=developer).first()
-                        if not developer_obj:
-                            developer_obj = Developer(name=developer)
-                            developer_obj.save()
-                        game.developers.add(developer_obj)
+                # Издатели
+                for publisher in self.object['publishers']:
+                    publisher_obj = Publisher.objects.filter(name=publisher).first()
+                    if not publisher_obj:
+                        publisher_obj = Publisher(name=publisher)
+                        publisher_obj.save()
+                    game.publishers.add(publisher_obj)
 
-                    # Издатели
-                    for publisher in self.object['publishers']:
-                        publisher_obj = Publisher.objects.filter(name=publisher).first()
-                        if not publisher_obj:
-                            publisher_obj = Publisher(name=publisher)
-                            publisher_obj.save()
-                        game.publishers.add(publisher_obj)
+                # Жанры
+                for genre in self.object['genres']:
+                    genre_obj = Genre.objects.filter(name=genre['description']).first()
+                    if not genre_obj:
+                        genre_obj = Genre(name=genre['description'])
+                        genre_obj.save()
+                    game.genres.add(genre_obj)
 
-                    # Жанры
-                    for genre in self.object['genres']:
-                        genre_obj = Genre.objects.filter(name=genre['description']).first()
-                        if not genre_obj:
-                            genre_obj = Genre(name=genre['description'])
-                            genre_obj.save()
-                        game.genres.add(genre_obj)
+                # Категории
+                for category in self.object['categories']:
+                    category_obj = Category.objects.filter(name=category['description']).first()
+                    if not category_obj:
+                        category_obj = Category(name=category['description'])
+                        category_obj.save()
+                    game.categories.add(category_obj)
 
-                    # Категории
-                    for category in self.object['categories']:
-                        category_obj = Category.objects.filter(name=category['description']).first()
-                        if not category_obj:
-                            category_obj = Category(name=category['description'])
-                            category_obj.save()
-                        game.categories.add(category_obj)
-
-                    self.object = game
+                self.object = game
             else:
                 print(f'Ошибка получения данных', file=sys.stderr)
 

@@ -2,7 +2,7 @@ import sys
 import requests
 from steam_web_api import Steam
 
-from config.settings import STEAM_API_KEY
+from config.settings import STEAM_API_KEY, KZT_RATE
 
 
 class SteamService:
@@ -28,16 +28,18 @@ class SteamService:
         """Возвращает информацию об игре"""
         url = f'http://store.steampowered.com/api/appdetails?appids={appid}&cc=kz'
         response = requests.get(url)
+        game_object = None
         if response.status_code == 200:
-            data = response.json()
-            if data[str(appid)]['success']:
-                return {'data': data[str(appid)]['data'], 'is_full': True}
-            else:
-                details = SteamService.get_partial_game_info(appid)
-                return {'data': details, 'is_full': False} if details else None
-        else:
-            details = SteamService.get_partial_game_info(appid)
-            return {'data': details, 'is_full': False} if details else None
+            response_data = response.json()
+            if response_data[str(appid)]['success']:
+                game_object = response_data[str(appid)]['data']
+                # цена
+                if "price_overview" in game_object:
+                    if game_object["price_overview"]['currency'] == 'KZT':
+                        game_object['price'] = str(int(KZT_RATE * float(game_object["price_overview"]['final']) / 100)) + " РУБ"
+                    else:
+                        game_object['price'] = game_object["price_overview"]['final_formatted']
+        return game_object
 
     @staticmethod
     def get_partial_game_info(appid):
