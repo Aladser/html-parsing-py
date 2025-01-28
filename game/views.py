@@ -1,13 +1,14 @@
 import sys
 from math import floor
 
+import requests
 from django.views.generic import DetailView
 from django.views.generic import ListView
 
-from config.settings import STEAM_API_KEY
+from config.settings import STEAM_API_KEY, KZT_RATE
 from game.models import Game, Developer, Publisher, Genre, Category
 from libs.steam_service import SteamService
-
+import json
 
 class GameListView(ListView):
     """Список игр"""
@@ -102,6 +103,14 @@ class GameDetailView(DetailView):
                 self.object = games_data['data']
                 self.is_full_data = games_data['is_full']
                 if self.is_full_data:
+                    # цена
+                    price = None
+                    if "price_overview" in self.object:
+                        if self.object["price_overview"]['currency'] == 'KZT':
+                            price = str(int(KZT_RATE * float(self.object["price_overview"]['final']) / 100)) + " РУБ"
+                        else:
+                            price = self.object["price_overview"]['final_formatted']
+
                     # если получены полные данные, то записываются в БД
                     game_param_list = {
                         "id": self.object["steam_appid"],
@@ -110,10 +119,9 @@ class GameDetailView(DetailView):
                         "short_description": self.object["short_description"],
                         "metacritic": self.object["metacritic"]['score'] if "metacritic" in self.object else 0,
                         "metacritic_link": self.object["metacritic"]['url'] if "metacritic" in self.object else "",
-                        "release_date": self.object["release_date"],
+                        "release_date": self.object["release_date"]['date'],
                         "background": self.object["background"],
-                        "price": self.object["price_overview"][
-                            'final_formatted'] if "price_overview" in self.object else None,
+                        "price": price,
                         'is_free': self.object["is_free"]
                     }
                     game = Game.objects.create(**game_param_list)

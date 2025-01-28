@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 from dotenv import load_dotenv
 
+from libs.exchange_rate import ExchangeRate
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 SECRET_KEY = 'django-insecure-a@5n(peiblru4ue#=)j93=r=abq+vw^2urao_zi&==629x(@i#'
@@ -101,3 +103,6 @@ MEDIA_ROOT = BASE_DIR / 'media'
 NULLABLE = {"null": True, "blank": True}
 STEAM_API_KEY = os.getenv("STEAM_API_KEY")
 STEAM_USER_ID = os.getenv("STEAM_USER_ID")
+
+KZT_RATE = ExchangeRate.get('Тенге')
+

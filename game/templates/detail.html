@@ -27,11 +27,7 @@
       {% endif %}
 
       {% if object.release_date %}
-        {%if not object.release_date.coming_soon %}
-           <div>Дата выхода: {{object.release_date.date}}</div>
-        {%else%}
-          <div>Дата выхода: В разработке</div>
-        {%endif%}
+        <div>Дата выхода: {{object.release_date}}</div>
       {% endif %}
 
       {% if developers %}<div>Разработчики: {{developers}}</div>{% endif %}
