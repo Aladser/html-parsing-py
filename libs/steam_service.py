@@ -34,7 +34,7 @@ class SteamService:
                 # цена
                 if "price_overview" in game_object:
                     if game_object["price_overview"]['currency'] == 'KZT':
-                        game_object['price'] = str(int(KZT_RATE * float(game_object["price_overview"]['final']) / 100)) + " РУБ"
+                        game_object['price'] = str(int(KZT_RATE * float(game_object["price_overview"]['final']) / 100)) + " РУБ (KZ)"
                     else:
                         game_object['price'] = game_object["price_overview"]['final_formatted']
         return game_object
