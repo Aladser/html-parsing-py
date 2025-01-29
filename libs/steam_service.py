@@ -1,5 +1,7 @@
 import sys
 import requests
+from translate import Translator
+
 from config.settings import KZT_RATE
 
 
@@ -37,6 +39,9 @@ class SteamService:
                         game_object['price'] = str(int(KZT_RATE * float(game_object["price_overview"]['final']) / 100)) + " РУБ (KZ)"
                     else:
                         game_object['price'] = game_object["price_overview"]['final_formatted']
+                # перевод
+                translator = Translator(to_lang="ru")
+                game_object['short_description'] = translator.translate(game_object['short_description'])
         return game_object
 
     @staticmethod
