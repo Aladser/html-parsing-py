@@ -1,6 +1,7 @@
 {% extends 'basic.html' %}
 
 {% block content %}
+
     <h2 class="text-center py-2 mb-4">
         <a href="/" class="text-decoration-none text-light">
             <img src="/media/logo.png" class="me-2"> <span>Steam библиотека</span></a>
@@ -46,12 +47,26 @@
         </table>
 
         <h2 class="text-center mb-3">Список игр</h2>
-        <input type="text" id="search-input" placeholder="Поиск" class="search-text w-25">
-        <button id="clear-search-btn" class="d-none">X</button>
+        
+        <div class="d-flex justify-content-between">
+            <div class="w-50">
+                <input type="text" id="search-input" placeholder="Поиск" class="search-text p-3 w-50">
+                <button id="clear-search-btn" class="custom-btn d-none">X</button>
+            </div>
+            <div class="w-50 text-end">
+                <label for="game-count-select" class="me-1 fw-bolder">Количество</label>
+                <select class="p-3" id="game-count-select">
+                  <option value="10">10</option>
+                  <option value="50">50</option>
+                  <option value="100">100</option>
+                  <option value="all" selected>Все</option>
+                </select>
+            </div>
+        </div>
 
-        <table class="w-100">
+        <table class="w-100 mb-3">
           {% for game in games %}
-            <tr class="border-theme w-100">
+            <tr class="game border-theme w-100">
                 <td class="text-center px-2 {% if forloop.counter0 < 10 %}fs-3 fw-bolder{%else%}fs-4{%endif%}">{{forloop.counter}}</td>
                 <td><img src="https://media.steampowered.com/steam/apps/{{game.appid}}/header.jpg" alt="{{game.image}}" class="img-fluid h-100"></td>
                 <td class="ps-3 w-50"><a href="{% url 'game:detail' game.appid %}" class="game-name fs-3 fw-bold text-decoration-none text-light">{{game.title}}</a></td>
@@ -59,6 +74,7 @@
             </tr>
           {% endfor %}
         </table>
+        <button class="custom-btn border-theme bg-secondary text-light" id="scroll-to-btn">Наверх</button>
     {% elif userid %}
         <div class="fs-3 text-center py-2">У пользователя нет игр на аккаунте</div>
     {% elif error%}
@@ -66,4 +82,5 @@
     {% else %}
         <div class="fs-3 text-center py-2">Введите логин пользователя для показа списка игр аккаунта</div>
     {% endif %}
+
 {% endblock %}
